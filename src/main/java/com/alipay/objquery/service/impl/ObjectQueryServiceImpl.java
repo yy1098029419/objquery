@@ -5,9 +5,8 @@ import com.alipay.objquery.query.Limit;
 import com.alipay.objquery.query.Query;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -57,13 +56,19 @@ public class ObjectQueryServiceImpl implements ObjectQueryService {
      * @return 经过group后的流
      */
     private <T> Stream<T> groupData(Group<T> group, Stream<T> stream) {
-        Set<Object> groupSet = new HashSet<>();
+        List<List<Object>> groupList = new LinkedList<>();
         return stream.filter(e -> {
-            Object groupValue = group.getGroupValue(e);
-            if (groupSet.contains(groupValue)) {
+            List<Object> groupValue = group.getGroupValue(e);
+            A:
+            for (List<Object> list : groupList) {
+                for (int i = 0; i < list.size(); i++) {
+                    if (!groupValue.get(i).equals(list.get(i))) {
+                        continue A;
+                    }
+                }
                 return false;
             }
-            groupSet.add(groupValue);
+            groupList.add(groupValue);
             return true;
         });
     }

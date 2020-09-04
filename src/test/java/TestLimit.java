@@ -12,7 +12,7 @@ import java.util.List;
 public class TestLimit {
 
     @Test
-    public void test() {
+    public void test1() {
         List<TestData> data = new ArrayList<>();
         data.add(new TestData(1, "bbbb"));
         data.add(new TestData(2, "bbbb"));
@@ -26,6 +26,31 @@ public class TestLimit {
         Query<TestData> query = new Query();
 
         List<TestData> result = new ObjectQueryServiceImpl().query(data, query, new Limit(1, 2));
+
+        result.forEach(e -> System.out.println(String.format("id: %s \t name: %s", e.getId(), e.getName())));
+        assert result.size() == 2;
+        assert result.get(0).getId()==3;
+
+        System.out.println("cost time: " + (System.currentTimeMillis() - start));
+    }
+
+    @Test
+    public void test2() {
+        List<TestData> data = new ArrayList<>();
+        data.add(new TestData(1, "bbbb"));
+        data.add(new TestData(2, "bbbb"));
+        data.add(new TestData(3, "aaaa"));
+        data.add(new TestData(4, "aaaa"));
+        data.add(new TestData(5, "cccc"));
+        data.add(new TestData(6, "cccc"));
+
+        long start = System.currentTimeMillis();
+
+        Query<TestData> query = new Query();
+        Limit limit = new Limit();
+        limit.setPage(1);
+        limit.setPageSize(2);
+        List<TestData> result = new ObjectQueryServiceImpl().query(data, query, limit);
 
         result.forEach(e -> System.out.println(String.format("id: %s \t name: %s", e.getId(), e.getName())));
         assert result.size() == 2;

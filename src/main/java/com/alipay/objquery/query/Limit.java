@@ -11,6 +11,9 @@ public class Limit {
 
     private int pageSize;
 
+    public Limit() {
+    }
+
     public Limit(int page, int pageSize) {
         this.page = page;
         this.pageSize = pageSize;

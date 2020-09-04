@@ -58,10 +58,10 @@
 </td>
 <td class="coverageStat">
   <span class="percent">
-    95.8%
+    96.3%
   </span>
   <span class="absValue">
-    (23/ 24)
+    (26/ 27)
   </span>
 </td>
 </tr>
@@ -79,75 +79,80 @@
 <i>5</i>&nbsp;import com.alipay.objquery.query.Query;
 <i>6</i>&nbsp;
 <i>7</i>&nbsp;import java.util.ArrayList;
-<i>8</i>&nbsp;import java.util.HashSet;
+<i>8</i>&nbsp;import java.util.LinkedList;
 <i>9</i>&nbsp;import java.util.List;
-<i>10</i>&nbsp;import java.util.Set;
-<i>11</i>&nbsp;import java.util.stream.Collectors;
-<i>12</i>&nbsp;import java.util.stream.Stream;
-<i>13</i>&nbsp;
-<i>14</i>&nbsp;/**
-<i>15</i>&nbsp; * 对象查询服务实现类
-<i>16</i>&nbsp; *
-<i>17</i>&nbsp; * @author yangwenpeng
-<i>18</i>&nbsp; * @version 2020年9月3日17:03:39
-<i>19</i>&nbsp; */
-<b class="fc"><i>20</i>&nbsp;public class ObjectQueryServiceImpl implements ObjectQueryService {</b>
-<i>21</i>&nbsp;
-<i>22</i>&nbsp;    @Override
-<i>23</i>&nbsp;    public &lt;T&gt; List&lt;T&gt; query(List&lt;T&gt; data, Query&lt;T&gt; query) {
-<b class="fc"><i>24</i>&nbsp;        Stream&lt;T&gt; stream = data.stream();</b>
-<b class="fc"><i>25</i>&nbsp;        if (query.getWhere() != null) {</b>
-<b class="fc"><i>26</i>&nbsp;            stream = stream.filter(e -&gt; query.getWhere().check(e));</b>
-<i>27</i>&nbsp;        }
-<b class="fc"><i>28</i>&nbsp;        if (query.getGroup() != null) {</b>
-<b class="fc"><i>29</i>&nbsp;            stream = groupData(query.getGroup(), stream);</b>
-<i>30</i>&nbsp;        }
-<b class="fc"><i>31</i>&nbsp;        if (query.getOrder() != null) {</b>
-<b class="fc"><i>32</i>&nbsp;            stream = stream.sorted(query.getOrder());</b>
-<i>33</i>&nbsp;        }
-<b class="fc"><i>34</i>&nbsp;        return stream.collect(Collectors.toList());</b>
-<i>35</i>&nbsp;    }
-<i>36</i>&nbsp;
-<i>37</i>&nbsp;    @Override
-<i>38</i>&nbsp;    public &lt;T&gt; List&lt;T&gt; query(List&lt;T&gt; data, Query&lt;T&gt; query, Limit limit) {
-<b class="fc"><i>39</i>&nbsp;        List&lt;T&gt; list = query(data, query);</b>
-<b class="fc"><i>40</i>&nbsp;        if (limit != null) {</b>
-<b class="fc"><i>41</i>&nbsp;            int start = limit.getPage() * limit.getPageSize();</b>
-<b class="fc"><i>42</i>&nbsp;            if (start &gt;= list.size()) {</b>
-<b class="nc"><i>43</i>&nbsp;                return new ArrayList&lt;&gt;();</b>
-<i>44</i>&nbsp;            }
-<b class="fc"><i>45</i>&nbsp;            int end = Math.min(list.size(), start + limit.getPageSize());</b>
-<b class="fc"><i>46</i>&nbsp;            list = list.subList(start, end);</b>
-<i>47</i>&nbsp;        }
-<b class="fc"><i>48</i>&nbsp;        return list;</b>
-<i>49</i>&nbsp;    }
-<i>50</i>&nbsp;
-<i>51</i>&nbsp;    /**
-<i>52</i>&nbsp;     * 对stream进行类似于sql的group by 操作
-<i>53</i>&nbsp;     *
-<i>54</i>&nbsp;     * @param group  group条件
-<i>55</i>&nbsp;     * @param stream 数据流
-<i>56</i>&nbsp;     * @param &lt;T&gt;    对象数据类型
-<i>57</i>&nbsp;     * @return 经过group后的流
-<i>58</i>&nbsp;     */
-<i>59</i>&nbsp;    private &lt;T&gt; Stream&lt;T&gt; groupData(Group&lt;T&gt; group, Stream&lt;T&gt; stream) {
-<b class="fc"><i>60</i>&nbsp;        Set&lt;Object&gt; groupSet = new HashSet&lt;&gt;();</b>
-<b class="fc"><i>61</i>&nbsp;        return stream.filter(e -&gt; {</b>
-<b class="fc"><i>62</i>&nbsp;            Object groupValue = group.getGroupValue(e);</b>
-<b class="fc"><i>63</i>&nbsp;            if (groupSet.contains(groupValue)) {</b>
-<b class="fc"><i>64</i>&nbsp;                return false;</b>
-<i>65</i>&nbsp;            }
-<b class="fc"><i>66</i>&nbsp;            groupSet.add(groupValue);</b>
-<b class="fc"><i>67</i>&nbsp;            return true;</b>
-<i>68</i>&nbsp;        });
-<i>69</i>&nbsp;    }
-<i>70</i>&nbsp;}
+<i>10</i>&nbsp;import java.util.stream.Collectors;
+<i>11</i>&nbsp;import java.util.stream.Stream;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;/**
+<i>14</i>&nbsp; * 对象查询服务实现类
+<i>15</i>&nbsp; *
+<i>16</i>&nbsp; * @author yangwenpeng
+<i>17</i>&nbsp; * @version 2020年9月3日17:03:39
+<i>18</i>&nbsp; */
+<b class="fc"><i>19</i>&nbsp;public class ObjectQueryServiceImpl implements ObjectQueryService {</b>
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    @Override
+<i>22</i>&nbsp;    public &lt;T&gt; List&lt;T&gt; query(List&lt;T&gt; data, Query&lt;T&gt; query) {
+<b class="fc"><i>23</i>&nbsp;        Stream&lt;T&gt; stream = data.stream();</b>
+<b class="fc"><i>24</i>&nbsp;        if (query.getWhere() != null) {</b>
+<b class="fc"><i>25</i>&nbsp;            stream = stream.filter(e -&gt; query.getWhere().check(e));</b>
+<i>26</i>&nbsp;        }
+<b class="fc"><i>27</i>&nbsp;        if (query.getGroup() != null) {</b>
+<b class="fc"><i>28</i>&nbsp;            stream = groupData(query.getGroup(), stream);</b>
+<i>29</i>&nbsp;        }
+<b class="fc"><i>30</i>&nbsp;        if (query.getOrder() != null) {</b>
+<b class="fc"><i>31</i>&nbsp;            stream = stream.sorted(query.getOrder());</b>
+<i>32</i>&nbsp;        }
+<b class="fc"><i>33</i>&nbsp;        return stream.collect(Collectors.toList());</b>
+<i>34</i>&nbsp;    }
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;    @Override
+<i>37</i>&nbsp;    public &lt;T&gt; List&lt;T&gt; query(List&lt;T&gt; data, Query&lt;T&gt; query, Limit limit) {
+<b class="fc"><i>38</i>&nbsp;        List&lt;T&gt; list = query(data, query);</b>
+<b class="fc"><i>39</i>&nbsp;        if (limit != null) {</b>
+<b class="fc"><i>40</i>&nbsp;            int start = limit.getPage() * limit.getPageSize();</b>
+<b class="fc"><i>41</i>&nbsp;            if (start &gt;= list.size()) {</b>
+<b class="nc"><i>42</i>&nbsp;                return new ArrayList&lt;&gt;();</b>
+<i>43</i>&nbsp;            }
+<b class="fc"><i>44</i>&nbsp;            int end = Math.min(list.size(), start + limit.getPageSize());</b>
+<b class="fc"><i>45</i>&nbsp;            list = list.subList(start, end);</b>
+<i>46</i>&nbsp;        }
+<b class="fc"><i>47</i>&nbsp;        return list;</b>
+<i>48</i>&nbsp;    }
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;    /**
+<i>51</i>&nbsp;     * 对stream进行类似于sql的group by 操作
+<i>52</i>&nbsp;     *
+<i>53</i>&nbsp;     * @param group  group条件
+<i>54</i>&nbsp;     * @param stream 数据流
+<i>55</i>&nbsp;     * @param &lt;T&gt;    对象数据类型
+<i>56</i>&nbsp;     * @return 经过group后的流
+<i>57</i>&nbsp;     */
+<i>58</i>&nbsp;    private &lt;T&gt; Stream&lt;T&gt; groupData(Group&lt;T&gt; group, Stream&lt;T&gt; stream) {
+<b class="fc"><i>59</i>&nbsp;        List&lt;List&lt;Object&gt;&gt; groupList = new LinkedList&lt;&gt;();</b>
+<b class="fc"><i>60</i>&nbsp;        return stream.filter(e -&gt; {</b>
+<b class="fc"><i>61</i>&nbsp;            List&lt;Object&gt; groupValue = group.getGroupValue(e);</b>
+<i>62</i>&nbsp;            A:
+<b class="fc"><i>63</i>&nbsp;            for (List&lt;Object&gt; list : groupList) {</b>
+<b class="fc"><i>64</i>&nbsp;                for (int i = 0; i &lt; list.size(); i++) {</b>
+<b class="fc"><i>65</i>&nbsp;                    if (!groupValue.get(i).equals(list.get(i))) {</b>
+<b class="fc"><i>66</i>&nbsp;                        continue A;</b>
+<i>67</i>&nbsp;                    }
+<i>68</i>&nbsp;                }
+<b class="fc"><i>69</i>&nbsp;                return false;</b>
+<i>70</i>&nbsp;            }
+<b class="fc"><i>71</i>&nbsp;            groupList.add(groupValue);</b>
+<b class="fc"><i>72</i>&nbsp;            return true;</b>
+<i>73</i>&nbsp;        });
+<i>74</i>&nbsp;    }
+<i>75</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2020-09-04 14:04</div>
+    <div style="float:right;">generated on 2020-09-04 14:36</div>
 </div>
 </body>
 </html>

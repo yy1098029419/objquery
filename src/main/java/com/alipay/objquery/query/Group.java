@@ -1,6 +1,9 @@
 package com.alipay.objquery.query;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * 封装了Group条件
@@ -10,13 +13,16 @@ import java.util.function.Function;
  */
 public class Group<T> {
 
-    private Function<? super T,?> func;
+    private List<Function<? super T,?>> functionList = new ArrayList<>();
 
-    public Group(Function<? super T, ?> func) {
-        this.func = func;
+    public Group(){ }
+
+    public Group<T> addGroup(Function<? super T,?> func){
+        functionList.add(func);
+        return this;
     }
 
-    public Object getGroupValue(T data){
-        return func.apply(data);
+    public List<Object> getGroupValue(T data){
+        return functionList.stream().map(e->e.apply(data)).collect(Collectors.toList());
     }
 }

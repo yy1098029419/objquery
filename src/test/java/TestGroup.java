@@ -16,7 +16,7 @@ public class TestGroup {
     public void test(){
         List<TestData> data = new ArrayList<>();
         data.add(new TestData(1, "bbbb"));
-        data.add(new TestData(2, "bbbb"));
+        data.add(new TestData(1, "bbbb"));
         data.add(new TestData(3, "aaaa"));
         data.add(new TestData(4, "aaaa"));
         data.add(new TestData(5, "cccc"));
@@ -24,14 +24,15 @@ public class TestGroup {
 
         long start = System.currentTimeMillis();
 
-        Group<TestData> group = new Group<>(TestData::getName);
+        Group<TestData> group = new Group<>();
+        group.addGroup(TestData::getName).addGroup(TestData::getId);
 
         Query<TestData> query = new Query();
         query.setGroup(group);
         List<TestData> result = new ObjectQueryServiceImpl().query(data, query);
 
         result.forEach(e -> System.out.println(String.format("id: %s \t name: %s", e.getId(), e.getName())));
-        assert result.size() == 3;
+        assert result.size() == 5;
         System.out.println("cost time: " + (System.currentTimeMillis() - start));
     }
 }

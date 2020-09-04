@@ -19,10 +19,10 @@
 总体覆盖率情况如下<br/>
 Overall Coverage Summary<br/>
 Package	Class, %	Method, %	Line, %<br/>
-all classes	100% (8/ 8)	94.1% (32/ 34)	94.9% (93/ 98)<br/>
+all classes	100% (8/ 8)	100% (36/ 36)	99% (103/ 104)<br/>
 
 Coverage Breakdown<br/>
 Package	Class, %	Method, %	Line, %<br/>
-com.alipay.objquery.query	100% (6/ 6)	92.6% (25/ 27)	94.2% (65/ 69)<br/>
+com.alipay.objquery.query	100% (6/ 6)	100% (29/ 29)	100% (72/ 72)<br/>
 com.alipay.objquery.query.check	100% (1/ 1)	100% (2/ 2)	100% (5/ 5)<br/>
-com.alipay.objquery.service.impl	100% (1/ 1)	100% (5/ 5)	95.8% (23/ 24)
+com.alipay.objquery.service.impl	100% (1/ 1)	100% (5/ 5)	96.3% (26/ 27)<br/>

@@ -12,7 +12,7 @@ import java.util.List;
 public class TestWhere {
 
     @Test
-    public void test() {
+    public void test1() {
 
         List<TestData> data = new ArrayList<>();
         data.add(new TestData(1, "wwww"));
@@ -37,6 +37,35 @@ public class TestWhere {
 
         query1.forEach(e -> System.out.println(String.format("id: %s \t name: %s", e.getId(), e.getName())));
         assert query1.size() == 3;
+        System.out.println("cost time: " + (System.currentTimeMillis() - start));
+    }
+
+    @Test
+    public void test2() {
+
+        List<TestData> data = new ArrayList<>();
+        data.add(new TestData(1, "wwww"));
+        data.add(new TestData(2, "babb"));
+        data.add(new TestData(3, "abcd"));
+        data.add(new TestData(4, "ebac"));
+        data.add(new TestData(5, "bdcq"));
+        data.add(new TestData(6, "ccdd"));
+
+        long start = System.currentTimeMillis();
+
+        // name.contains("c") = true or ( name.contains("a") = true and name.contains("b") = true )
+        Where<TestData> subWhere = new Where<>();
+        subWhere.andEquals(e -> e.getName().contains("a"), true).andEquals(e -> e.getName().contains("b"), true);
+        Where<TestData> where = new Where<>();
+        where.andEquals(e -> e.getName().contains("c"), true);
+        where.or(subWhere);
+
+        Query<TestData> query = new Query();
+        query.setWhere(where);
+        List<TestData> query1 = new ObjectQueryServiceImpl().query(data, query);
+
+        query1.forEach(e -> System.out.println(String.format("id: %s \t name: %s", e.getId(), e.getName())));
+        assert query1.size() == 5;
         System.out.println("cost time: " + (System.currentTimeMillis() - start));
     }
 }

@@ -68,7 +68,7 @@ public class Where<T> implements Checkable<T> {
     }
 
     public Where<T> or(Checkable<T> checkable) {
-        this.andChecks.add(checkable);
+        this.orChecks.add(checkable);
         return this;
     }
 }

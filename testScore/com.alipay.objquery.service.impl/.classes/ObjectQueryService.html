@@ -1,0 +1,83 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ObjectQueryService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.alipay.objquery.service.impl</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ObjectQueryService (com.alipay.objquery.service.impl)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">ObjectQueryService</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.alipay.objquery.service.impl;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.alipay.objquery.query.Limit;
+<i>4</i>&nbsp;import com.alipay.objquery.query.Query;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;import java.util.List;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;/**
+<i>9</i>&nbsp; * 对象查询服务
+<i>10</i>&nbsp; *
+<i>11</i>&nbsp; * @author yangwenpeng
+<i>12</i>&nbsp; * @version 2020年9月3日17:03:39
+<i>13</i>&nbsp; */
+<i>14</i>&nbsp;public interface ObjectQueryService {
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    /**
+<i>17</i>&nbsp;     * 查询对象
+<i>18</i>&nbsp;     *
+<i>19</i>&nbsp;     * @param data  装有指定对象的集合
+<i>20</i>&nbsp;     * @param query {@link Query} 查询条件，包括where、group、order
+<i>21</i>&nbsp;     * @param &lt;T&gt;   对象的类型
+<i>22</i>&nbsp;     * @return 经过筛选后的对象集合
+<i>23</i>&nbsp;     */
+<i>24</i>&nbsp;    &lt;T&gt; List&lt;T&gt; query(List&lt;T&gt; data, Query&lt;T&gt; query);
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    /**
+<i>27</i>&nbsp;     * 支持分页的对象查询
+<i>28</i>&nbsp;     *
+<i>29</i>&nbsp;     * @param data  装有对象元数据的集合
+<i>30</i>&nbsp;     * @param query {@link Query} 查询条件，包括where、group、order
+<i>31</i>&nbsp;     * @param limit {@link Limit}分页条件
+<i>32</i>&nbsp;     * @param &lt;T&gt;   对象的类型
+<i>33</i>&nbsp;     * @return 经过筛选后的对象集合
+<i>34</i>&nbsp;     */
+<i>35</i>&nbsp;    &lt;T&gt; List&lt;T&gt; query(List&lt;T&gt; data, Query&lt;T&gt; query, Limit limit);
+<i>36</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-09-04 14:04</div>
+</div>
+</body>
+</html>

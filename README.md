@@ -16,7 +16,7 @@
 
 测试覆盖率以HTML形式存放于testScore文件夹中，可直接访问index.html查看具体细节。
 
-总体覆盖率情况如下
+总体覆盖率情况如下<br/>
 Overall Coverage Summary<br/>
 Package	Class, %	Method, %	Line, %<br/>
 all classes	100% (8/ 8)	94.1% (32/ 34)	94.9% (93/ 98)<br/>
